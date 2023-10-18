@@ -3,7 +3,7 @@
  */
 const fs = require("fs");
 const http = require("http");
-const { execFile } = require("child_process");
+const { spawn } = require("node:child_process");
 
 const json = fs.readFileSync('./config.json', { encoding: 'utf8' , flag: 'r' });
 const conf = JSON.parse(json);
@@ -17,17 +17,12 @@ const requestListener = function (req,res) {
 
     if (conf['keys'][key]) {
         console.log(`${currentDate()} : ${key} - start`);
-        const child = execFile('bash', [conf['keys'][key]], (error, stdout, stderr) => {
-            if (error) {
-                console.error(stderr);
-                throw error;
-            }
-            if (stdout) {
-                console.log(`stdout`);
-            }
-            if (stderr) {
-                console.log(`stderr`);
-            }
+        const child = spawn('bash', [conf['keys'][key]]);
+        child.stdout.on('data', (data) => {
+            console.log(`${data}`);
+        });
+        child.stderr.on('data', (data) => {
+            console.error(`${data}`);
         });
         child.on('close', () => {
             console.log(`${currentDate()} : ${key} - end`);
