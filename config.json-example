@@ -1,0 +1,7 @@
+{
+  "host" : "localhost" ,
+  "port" : 8999 ,
+  "keys" : {
+    "/abc" : "abc.sh"
+  }
+}
