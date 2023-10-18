@@ -22,6 +22,12 @@ const requestListener = function (req,res) {
                 console.error(stderr);
                 throw error;
             }
+            if (stdout) {
+                console.log(`stdout`);
+            }
+            if (stderr) {
+                console.log(`stderr`);
+            }
         });
         child.on('close', () => {
             console.log(`${currentDate()} : ${key} - end`);
