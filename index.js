@@ -19,10 +19,10 @@ const requestListener = function (req,res) {
         console.log(`${currentDate()} : ${key} - start`);
         const child = spawn('bash', [conf['keys'][key]]);
         child.stdout.on('data', (data) => {
-            console.log(`${data}`);
+            process.stdout.write(data);
         });
         child.stderr.on('data', (data) => {
-            console.error(`${data}`);
+            process.stderr.write(data);
         });
         child.on('close', () => {
             console.log(`${currentDate()} : ${key} - end`);
