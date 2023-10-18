@@ -1,3 +1,6 @@
+/**
+ * Thanks : Arthur Vercruysse & Jesse Wright
+ */
 const fs = require("fs");
 const http = require("http");
 const { execFile } = require("child_process");
